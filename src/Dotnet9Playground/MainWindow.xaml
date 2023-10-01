@@ -1,0 +1,34 @@
+﻿<Window
+    x:Class="Dotnet9Playground.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:dotnet9="https://dotnet9.com"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="综合小案例:模拟.NET应用场景，综合应用反编译、第三方库调试、拦截、一库多版本兼容"
+    Width="800"
+    Height="450"
+    Background="Bisque"
+    Icon="Resources/favicon.ico"
+    mc:Ignorable="d">
+    <Border Padding="10">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="40" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Button
+                Padding="15,2"
+                Background="White"
+                BorderBrush="DarkGreen"
+                BorderThickness="2"
+                Click="StartGame_OnClick"
+                Content="开始游戏"
+                FontSize="20"
+                Foreground="DarkOrange" />
+            <dotnet9:BallGame
+                x:Name="MyBallGame"
+                Grid.Row="1" />
+        </Grid>
+    </Border>
+</Window>

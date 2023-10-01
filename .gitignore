@@ -396,3 +396,4 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
+src/Dotnet9HookHigh/Lib/Lib.Harmony/2.2.2/0Harmony.dll
