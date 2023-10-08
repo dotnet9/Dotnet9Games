@@ -2,7 +2,7 @@
 
 namespace Dotnet9Games.Views
 {
-    internal interface IBall
+    public interface IBall
     {
         /// <summary>
         /// 气球用户控件

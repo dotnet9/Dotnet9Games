@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.IO;
+using System.Media;
+using System.Security.Cryptography;
 using System.Speech.Synthesis;
 using System.Threading.Tasks;
 using System.Windows.Media;
@@ -9,6 +12,8 @@ namespace Dotnet9Games.Helpers
     internal class BallHelper
     {
         private static SpeechSynthesizer _speechSynthesizer;
+        private static SoundPlayer _soundPlayer;
+        private static ConcurrentQueue<string> _needPlayWords = new ConcurrentQueue<string>();
 
         private static SpeechSynthesizer SpeechSynthesizer
         {
@@ -46,12 +51,45 @@ namespace Dotnet9Games.Helpers
         }
 
         /// <summary>
+        /// 播放背景音乐
+        /// </summary>
+        internal static void PlayBackgroundMusic()
+        {
+            if (_soundPlayer == null)
+            {
+                _soundPlayer = new SoundPlayer(Resource.浪漫惬意游戏背景配乐);
+            }
+
+            _soundPlayer.PlayLooping();
+        }
+
+        /// <summary>
+        /// 释放背景音乐播放
+        /// </summary>
+        internal static void CloseBackgroundMusic()
+        {
+            _soundPlayer?.Dispose();
+        }
+
+        /// <summary>
         /// 播放文字语音
         /// </summary>
         /// <param name="word"></param>
         internal static void PlayWordSound(string word)
         {
-            Task.Run(() => { SpeechSynthesizer.Speak(word); });
+            _needPlayWords.Enqueue(word);
+            Task.Run(async () =>
+            {
+                while (true)
+                {
+                    while (_needPlayWords.TryDequeue(out var currentWord))
+                    {
+                        SpeechSynthesizer.Speak(currentWord);
+                    }
+
+                    await Task.Delay(TimeSpan.FromMilliseconds(30));
+                }
+            });
         }
     }
 }

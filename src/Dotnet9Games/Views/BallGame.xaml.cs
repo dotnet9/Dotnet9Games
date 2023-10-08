@@ -2,6 +2,7 @@
 using Dotnet9Games.Models;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -15,8 +16,9 @@ namespace Dotnet9Games.Views
     public partial class BallGame : UserControl
     {
         private const int MaxSeconds = 60;
-        private readonly Dictionary<GameKind, IBallGame> _ballKind;
+        private readonly Dictionary<GameKind, UserControl> _ballKind;
         private IBallGame _currentBallGame;
+        private Stopwatch _stopwatch=new Stopwatch();
 
         public BallGame()
         {
@@ -25,12 +27,13 @@ namespace Dotnet9Games.Views
             CompositionTarget.Rendering += CompositionTargetBalloon_Rendering;
 
             // 游戏类型管理
-            _ballKind = new Dictionary<GameKind, IBallGame>()
+            _ballKind = new Dictionary<GameKind, UserControl>()
             {
-                { GameKind.Classics, new ClassicsBallGame(CanvasPlayground) },
-                { GameKind.Equation1, new Equation1BallGame(CanvasPlayground) }
+                { GameKind.Classics, new ClassicsBallGameHeader(CanvasPlayground) },
+                { GameKind.Equation1, new Equation1BallGameHeader(CanvasPlayground) }
             };
-            _currentBallGame = _ballKind[GameKind.Classics];
+            _currentBallGame = (IBallGame)_ballKind[GameKind.Classics];
+            ShowBallGameInfo(GameKind.Classics);
 
             // 游戏类型单选框，可进行游戏切换
             var classicsRadioButton = new RadioButton()
@@ -79,8 +82,15 @@ namespace Dotnet9Games.Views
             var gameKind = (GameKind)radioButton.Tag;
             if (radioButton.IsChecked == true)
             {
-                _currentBallGame = _ballKind[gameKind];
+                _currentBallGame = (IBallGame)_ballKind[gameKind];
+                ShowBallGameInfo(gameKind);
             }
+        }
+
+        private void ShowBallGameInfo(GameKind gameKind)
+        {
+            GridBallGameHeader.Children.Clear();
+            GridBallGameHeader.Children.Add(_ballKind[gameKind]);
         }
 
 
@@ -138,7 +148,7 @@ namespace Dotnet9Games.Views
                     }
 
                     seconds--;
-                    await Task.Delay(TimeSpan.FromSeconds(1));
+                    await Task.Delay(TimeSpan.FromMilliseconds(800));
                 }
 
                 BallHelper.PlayWordSound($"游戏结束");
@@ -165,9 +175,9 @@ namespace Dotnet9Games.Views
 
         private void ShowGameOver(bool show = true)
         {
-             this.Dispatcher.Invoke(() =>
+            this.Dispatcher.Invoke(() =>
             {
-                TextBlockGameOver.Visibility = show ? Visibility.Visible : Visibility.Collapsed;
+                GridGameOver.Visibility = show ? Visibility.Visible : Visibility.Collapsed;
             });
         }
 
@@ -193,6 +203,16 @@ namespace Dotnet9Games.Views
             //}
 
             return base.MeasureOverride(constraint);
+        }
+
+        private void BallGame_OnLoaded(object sender, RoutedEventArgs e)
+        {
+            BallHelper.PlayBackgroundMusic();
+        }
+
+        private void BallGame_OnUnloaded(object sender, RoutedEventArgs e)
+        {
+            BallHelper.CloseBackgroundMusic();
         }
     }
 }

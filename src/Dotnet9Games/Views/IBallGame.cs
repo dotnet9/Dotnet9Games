@@ -70,7 +70,7 @@ namespace Dotnet9Games.Views
     /// <summary>
     /// 当前游戏状态
     /// </summary>
-    internal enum GameStatus
+    public enum GameStatus
     {
         [Description("失败")] Fail,
         [Description("成功")] Success,

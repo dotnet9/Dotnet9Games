@@ -55,8 +55,14 @@
     <Compile Include="Helpers\BallConst.cs" />
     <Compile Include="Helpers\BallHelper.cs" />
     <Compile Include="Helpers\EnumHelper.cs" />
-    <Compile Include="Views\ClassicsBallGame.cs" />
-    <Compile Include="Views\Equation1BallGame.cs" />
+    <Compile Include="Views\ClassicsBallGameHeader.xaml.cs">
+      <DependentUpon>ClassicsBallGameHeader.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ClassicsBallGameHeader_Game.cs" />
+    <Compile Include="Views\Equation1BallGameHeader.xaml.cs">
+      <DependentUpon>Equation1BallGameHeader.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Equation1BallGameHeader_Game.cs" />
     <Compile Include="Views\IBall.cs" />
     <Compile Include="Views\IBallGame.cs" />
     <Page Include="Views\Ball.xaml">
@@ -81,6 +87,14 @@
       <DependentUpon>BallGame.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Views\ClassicsBallGameHeader.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Equation1BallGameHeader.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -103,6 +117,7 @@
     <EmbeddedResource Include="Resource.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resource.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
@@ -113,6 +128,8 @@
   <ItemGroup>
     <EmbeddedResource Include="resources\气球爆裂声.mp3" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="resources\浪漫惬意游戏背景配乐.wav" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -2,16 +2,12 @@
 using Dotnet9Games.Models;
 using System;
 using System.Collections.Generic;
-using System.Reflection.Emit;
 using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace Dotnet9Games.Views
 {
-    /// <summary>
-    /// 经典游戏
-    /// </summary>
-    internal class ClassicsBallGame : IBallGame
+    public partial class Equation1BallGameHeader
     {
         private readonly Random _random = new Random(DateTime.Now.Millisecond);
         private readonly Canvas _canvas;
@@ -20,10 +16,6 @@ namespace Dotnet9Games.Views
         private int _ballScores;
         private List<IBall> _balls = new List<IBall>();
 
-        internal ClassicsBallGame(Canvas canvas)
-        {
-            _canvas = canvas;
-        }
 
         public GameKind GameKind()
         {

@@ -7,10 +7,7 @@ using System.Windows.Input;
 
 namespace Dotnet9Games.Views
 {
-    /// <summary>
-    /// 小学二年级算术游戏，100以内2位数加减
-    /// </summary>
-    internal class Equation1BallGame : IBallGame
+    public partial class ClassicsBallGameHeader
     {
         private readonly Random _random = new Random(DateTime.Now.Millisecond);
         private readonly Canvas _canvas;
@@ -19,14 +16,9 @@ namespace Dotnet9Games.Views
         private int _ballScores;
         private List<IBall> _balls = new List<IBall>();
 
-        internal Equation1BallGame(Canvas canvas)
-        {
-            _canvas = canvas;
-        }
-
         public GameKind GameKind()
         {
-            return Models.GameKind.Equation1;
+            return Models.GameKind.Classics;
         }
 
         public GameStatus GameStatus()
@@ -59,7 +51,15 @@ namespace Dotnet9Games.Views
         private void SetGameLevel(int level)
         {
             _level = level;
-            _currentLevelBallCount = _level * 2;
+
+            var time = level;
+            _currentLevelBallCount = 1;
+            while (time > 0)
+            {
+                _currentLevelBallCount *= 2;
+                time -= 1;
+            }
+
             _ballScores = 0;
         }
 
@@ -74,6 +74,8 @@ namespace Dotnet9Games.Views
                 _canvas.Children.Add(ball.Owner);
                 _balls.Add(ball);
             }
+
+            TextBlockTips.Text = $"点破{_currentLevelBallCount}个气球进入第{_level}关";
         }
 
         private void RemoveBall_OnMouseLeftButtonDown(object sender, MouseButtonEventArgs e)

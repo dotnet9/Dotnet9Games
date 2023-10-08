@@ -69,5 +69,14 @@ namespace Dotnet9Games {
                 return ((byte[])(obj));
             }
         }
+        
+        /// <summary>
+        ///   查找类似于 System.IO.MemoryStream 的 System.IO.UnmanagedMemoryStream 类型的本地化资源。
+        /// </summary>
+        internal static System.IO.UnmanagedMemoryStream 浪漫惬意游戏背景配乐 {
+            get {
+                return ResourceManager.GetStream("浪漫惬意游戏背景配乐", resourceCulture);
+            }
+        }
     }
 }

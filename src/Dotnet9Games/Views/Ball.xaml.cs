@@ -51,29 +51,8 @@ namespace Dotnet9Games.Views
             Score = BallConst.MaxScore - (randomSize / 10);
             TextBlockBallNumber.Text = $"{Score}";
             EllipseBall.ToolTip = $"{Score}号球";
-
-            // 创建渐变色集合
-            GradientStopCollection gradientStops = new()
-            {
-                new GradientStop(
-                    Color.FromArgb(255, (byte)random.Next(256), (byte)random.Next(256), (byte)random.Next(256)),
-                    0),
-                new GradientStop(
-                    Color.FromArgb(255, (byte)random.Next(256), (byte)random.Next(256), (byte)random.Next(256)),
-                    0.66),
-                new GradientStop(
-                    Color.FromArgb(0, (byte)random.Next(256), (byte)random.Next(256), (byte)random.Next(256)), 1)
-            };
-
-            // 设置气球的填充为渐变色
-            var fillBrush = new RadialGradientBrush(gradientStops)
-            {
-                RadiusX = 0.75,
-                RadiusY = 0.75,
-                GradientOrigin = new Point(0.2, 0.8),
-                Center = new Point(0.5, 0.5)
-            };
-            EllipseBall.Fill = fillBrush;
+            GradientStopDiff.Color =
+                Color.FromArgb(255, (byte)random.Next(256), (byte)random.Next(256), (byte)random.Next(256));
         }
     }
 }
