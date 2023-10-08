@@ -22,7 +22,7 @@
         <RadioButton GroupName="Count" x:Name="RadioButtonCustomCount" Content="自定义"></RadioButton>
         <TextBox
             Visibility="{Binding ElementName=RadioButtonCustomCount,Path=IsChecked,Converter={StaticResource BooleanToVisibilityConverter}}"
-            Width="60" Text="1">
+            Width="60" Text="1" FontSize="20" VerticalContentAlignment="Center" Foreground="DarkOrange">
         </TextBox>
     </StackPanel>
 </UserControl>
