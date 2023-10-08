@@ -2,7 +2,6 @@
 using System.Collections.Concurrent;
 using System.IO;
 using System.Media;
-using System.Security.Cryptography;
 using System.Speech.Synthesis;
 using System.Threading.Tasks;
 using System.Windows.Media;
@@ -13,7 +12,9 @@ namespace Dotnet9Games.Helpers
     {
         private static SpeechSynthesizer _speechSynthesizer;
         private static SoundPlayer _soundPlayer;
-        private static ConcurrentQueue<string> _needPlayWords = new ConcurrentQueue<string>();
+        private static ConcurrentStack<string> _needPlayWords;
+        private static readonly Random Random = new Random(DateTime.Now.Millisecond);
+
 
         private static SpeechSynthesizer SpeechSynthesizer
         {
@@ -77,19 +78,39 @@ namespace Dotnet9Games.Helpers
         /// <param name="word"></param>
         internal static void PlayWordSound(string word)
         {
-            _needPlayWords.Enqueue(word);
-            Task.Run(async () =>
+            if (_needPlayWords == null)
             {
-                while (true)
+                _needPlayWords = new ConcurrentStack<string>();
+                Task.Run(async () =>
                 {
-                    while (_needPlayWords.TryDequeue(out var currentWord))
+                    while (true)
                     {
-                        SpeechSynthesizer.Speak(currentWord);
-                    }
+                        while (_needPlayWords.TryPop(out var currentWord))
+                        {
+                            SpeechSynthesizer.Speak(currentWord);
+                        }
 
-                    await Task.Delay(TimeSpan.FromMilliseconds(30));
-                }
-            });
+                        await Task.Delay(TimeSpan.FromMilliseconds(30));
+                    }
+                });
+            }
+
+            // 如果有等等播放的语音先清空，不然会出现语音播放滞后的情况
+            while (!_needPlayWords.IsEmpty)
+            {
+                _needPlayWords.TryPop(out _);
+            }
+
+            _needPlayWords.Push(word);
+        }
+
+        /// <summary>
+        /// 获取共享的计时器
+        /// </summary>
+        /// <returns></returns>
+        internal static Random ShareRandom()
+        {
+            return Random;
         }
     }
 }

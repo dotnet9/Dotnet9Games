@@ -1,6 +1,5 @@
 ﻿using Dotnet9Games.Helpers;
 using Dotnet9Games.Models;
-using System;
 using System.Collections.Generic;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -9,7 +8,6 @@ namespace Dotnet9Games.Views
 {
     public partial class ClassicsBallGameHeader
     {
-        private readonly Random _random = new Random(DateTime.Now.Millisecond);
         private readonly Canvas _canvas;
         private int _level;
         private int _currentLevelBallCount;
@@ -68,7 +66,7 @@ namespace Dotnet9Games.Views
         {
             for (var i = 0; i < _currentLevelBallCount; i++)
             {
-                var ball = new Ball(_canvas, _random);
+                var ball = new Ball(_canvas);
                 ball.MouseLeftButtonDown += RemoveBall_OnMouseLeftButtonDown;
                 ;
                 _canvas.Children.Add(ball.Owner);

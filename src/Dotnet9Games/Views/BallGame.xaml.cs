@@ -3,7 +3,6 @@ using Dotnet9Games.Models;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -15,10 +14,10 @@ namespace Dotnet9Games.Views
     /// </summary>
     public partial class BallGame : UserControl
     {
-        private const int MaxSeconds = 60;
+        private const double MaxSeconds = 60;
         private readonly Dictionary<GameKind, UserControl> _ballKind;
         private IBallGame _currentBallGame;
-        private Stopwatch _stopwatch=new Stopwatch();
+        private Stopwatch _stopwatch = new Stopwatch();
 
         public BallGame()
         {
@@ -87,6 +86,10 @@ namespace Dotnet9Games.Views
             }
         }
 
+        /// <summary>
+        /// 切换游戏类型提示信息
+        /// </summary>
+        /// <param name="gameKind"></param>
         private void ShowBallGameInfo(GameKind gameKind)
         {
             GridBallGameHeader.Children.Clear();
@@ -100,12 +103,13 @@ namespace Dotnet9Games.Views
         private void GenerateBalloons()
         {
             _currentBallGame.CreateBalls();
-            StartCountTime();
+            _stopwatch.Restart();
         }
 
 
         private void CompositionTargetBalloon_Rendering(object sender, EventArgs e)
         {
+            // 更新气球位置
             foreach (var balloon in _currentBallGame.GetBalls())
             {
                 // 更新气球的位置
@@ -127,33 +131,37 @@ namespace Dotnet9Games.Views
                 Canvas.SetLeft(balloon.Owner, balloon.X);
                 Canvas.SetTop(balloon.Owner, balloon.Y);
             }
+
+            // 更新倒计时
+            UpdateCountTime();
         }
 
         /// <summary>
         /// 开启计时
         /// </summary>
-        private void StartCountTime()
+        private void UpdateCountTime()
         {
-            Task.Run(async () =>
+            if (!_stopwatch.IsRunning)
             {
-                var seconds = MaxSeconds;
-                while (seconds >= 0)
-                {
-                    CountGame(seconds);
-                    var gameStatus = _currentBallGame.GameStatus();
-                    if (gameStatus == GameStatus.Success)
-                    {
-                        UpgradeGame();
-                        return;
-                    }
+                return;
+            }
 
-                    seconds--;
-                    await Task.Delay(TimeSpan.FromMilliseconds(800));
+            var seconds = MaxSeconds - _stopwatch.Elapsed.TotalSeconds;
+            if (seconds >= 0)
+            {
+                CountGame(seconds);
+                var gameStatus = _currentBallGame.GameStatus();
+                if (gameStatus != GameStatus.Success)
+                {
+                    return;
                 }
 
-                BallHelper.PlayWordSound($"游戏结束");
-                ShowGameOver();
-            });
+                UpgradeGame();
+                return;
+            }
+
+            BallHelper.PlayWordSound($"游戏结束");
+            ShowGameOver();
         }
 
         /// <summary>
@@ -161,11 +169,11 @@ namespace Dotnet9Games.Views
         /// </summary>
         /// <param name="seconds"></param>
         /// <returns></returns>
-        private void CountGame(int seconds)
+        private void CountGame(double seconds)
         {
             this.Dispatcher.Invoke(() =>
             {
-                RunTimeCount.Text = TimeHelper.FormatSeconds(seconds);
+                RunTimeCount.Text = $"{seconds:f2}秒";
                 RunScores.Text = _currentBallGame.CountScores().ToString();
                 RunBallCount.Text = _currentBallGame.CountBallCount();
                 TextBlockGameTitle.Text =
@@ -173,8 +181,13 @@ namespace Dotnet9Games.Views
             });
         }
 
+        /// <summary>
+        /// 显示游戏结束标识
+        /// </summary>
+        /// <param name="show"></param>
         private void ShowGameOver(bool show = true)
         {
+            _stopwatch.Stop();
             this.Dispatcher.Invoke(() =>
             {
                 GridGameOver.Visibility = show ? Visibility.Visible : Visibility.Collapsed;
@@ -205,11 +218,21 @@ namespace Dotnet9Games.Views
             return base.MeasureOverride(constraint);
         }
 
+        /// <summary>
+        /// 游戏加载时播放背景音乐
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void BallGame_OnLoaded(object sender, RoutedEventArgs e)
         {
             BallHelper.PlayBackgroundMusic();
         }
 
+        /// <summary>
+        /// 游戏未加载时停止播放音乐
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void BallGame_OnUnloaded(object sender, RoutedEventArgs e)
         {
             BallHelper.CloseBackgroundMusic();

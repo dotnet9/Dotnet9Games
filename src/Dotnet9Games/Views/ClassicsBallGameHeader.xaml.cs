@@ -1,9 +1,4 @@
-﻿using Dotnet9Games.Helpers;
-using Dotnet9Games.Models;
-using System;
-using System.Collections.Generic;
-using System.Windows.Controls;
-using System.Windows.Input;
+﻿using System.Windows.Controls;
 
 namespace Dotnet9Games.Views
 {

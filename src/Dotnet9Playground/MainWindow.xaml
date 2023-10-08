@@ -26,9 +26,7 @@
                 Content="开始游戏"
                 FontSize="20"
                 Foreground="DarkOrange" />
-            <dotnet9:BallGame
-                x:Name="MyBallGame"
-                Grid.Row="1" />
+            <dotnet9:BallGame x:Name="MyBallGame" Grid.Row="1" />
         </Grid>
     </Border>
 </Window>

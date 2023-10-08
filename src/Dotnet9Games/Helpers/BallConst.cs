@@ -5,12 +5,12 @@
         /// <summary>
         /// 气球最小尺寸
         /// </summary>
-        internal const int MinNumber = 25;
+        internal const int MinNumber = 35;
 
         /// <summary>
         /// 气球最大尺寸
         /// </summary>
-        internal const int MaxNumber = 120;
+        internal const int MaxNumber = 130;
 
         /// <summary>
         /// 最大分
