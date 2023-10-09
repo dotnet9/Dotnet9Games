@@ -55,6 +55,9 @@
     <Compile Include="Helpers\BallConst.cs" />
     <Compile Include="Helpers\BallHelper.cs" />
     <Compile Include="Helpers\EnumHelper.cs" />
+    <Compile Include="Helpers\EquationHelper.cs" />
+    <Compile Include="Helpers\RandomHelper.cs" />
+    <Compile Include="Models\QuestionKind.cs" />
     <Compile Include="Views\ClassicsBallGameHeader.xaml.cs">
       <DependentUpon>ClassicsBallGameHeader.xaml</DependentUpon>
     </Compile>

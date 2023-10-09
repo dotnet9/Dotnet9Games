@@ -1,28 +1,62 @@
-﻿<UserControl x:Class="Dotnet9Games.Views.Equation1BallGameHeader"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:local="clr-namespace:Dotnet9Games.Views"
-             mc:Ignorable="d">
+﻿<UserControl
+    x:Class="Dotnet9Games.Views.Equation1BallGameHeader"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:models="clr-namespace:Dotnet9Games.Models"
+    mc:Ignorable="d">
     <UserControl.Resources>
-        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"></BooleanToVisibilityConverter>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
     </UserControl.Resources>
-    <StackPanel Orientation="Horizontal">
-        <TextBlock Text="类型：" FontSize="20"
-                   Foreground="DarkOrange" VerticalAlignment="Center">
+    <StackPanel>
+
+        <TextBlock
+            HorizontalAlignment="Center"
+            FontSize="25"
+            Foreground="DarkOrange"
+            Text="小学二年级点球大战" />
+        <TextBlock
+            HorizontalAlignment="Center"
+            FontSize="20"
+            Foreground="Green">
+            <Run x:Name="RunLevel" />
+            <Run Text="-" />
+            <Run Text="点破标有算式结果的气球闯关" />
         </TextBlock>
-        <RadioButton GroupName="Method" Content="加法"></RadioButton>
-        <RadioButton GroupName="Method" Content="减法"></RadioButton>
-        <RadioButton GroupName="Method" Content="随机" IsChecked="True"></RadioButton>
-        <TextBlock Text="题目个数：" FontSize="20" VerticalAlignment="Center" Margin="10 0 0 0"
-                   Foreground="DarkOrange">
-        </TextBlock>
-        <RadioButton GroupName="Count" Content="同关级别" IsChecked="True"></RadioButton>
-        <RadioButton GroupName="Count" x:Name="RadioButtonCustomCount" Content="自定义"></RadioButton>
-        <TextBox
-            Visibility="{Binding ElementName=RadioButtonCustomCount,Path=IsChecked,Converter={StaticResource BooleanToVisibilityConverter}}"
-            Width="60" Text="1" FontSize="20" VerticalContentAlignment="Center" Foreground="DarkOrange">
-        </TextBox>
+        <StackPanel Orientation="Horizontal">
+            <TextBlock
+                Margin="10,0,0,0"
+                VerticalAlignment="Center"
+                FontSize="20"
+                Foreground="DarkOrange"
+                Text="题目个数：" />
+            <RadioButton
+                VerticalAlignment="Center"
+                Click="ChangeQuestionKind_OnClick"
+                Content="同关卡级别"
+                GroupName="QuestionKind"
+                IsChecked="True"
+                Tag="{x:Static models:QuestionKind.SameLevel}" />
+            <RadioButton
+                x:Name="RadioButtonCustomCount"
+                VerticalAlignment="Center"
+                Click="ChangeQuestionKind_OnClick"
+                Content="自定义"
+                GroupName="QuestionKind"
+                Tag="{x:Static models:QuestionKind.Custom}" />
+            <TextBox
+                Width="60"
+                VerticalContentAlignment="Center"
+                FontSize="20"
+                Foreground="DarkOrange"
+                Text="1"
+                TextChanged="ChangeQuestionCount_OnTextChanged"
+                Visibility="{Binding ElementName=RadioButtonCustomCount, Path=IsChecked, Converter={StaticResource BooleanToVisibilityConverter}}" />
+        </StackPanel>
+        <TextBlock
+            x:Name="TextBlockQuestionInfo"
+            FontSize="20"
+            Foreground="White" />
     </StackPanel>
 </UserControl>

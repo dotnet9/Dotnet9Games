@@ -4,6 +4,8 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:models="clr-namespace:Dotnet9Games.Models"
+    xmlns:system="clr-namespace:System;assembly=mscorlib"
     d:DesignHeight="450"
     d:DesignWidth="800"
     Loaded="BallGame_OnLoaded"
@@ -14,7 +16,7 @@
         <SolidColorBrush x:Key="ControlBorderBrush" Color="#f1cccccc" />
         <SolidColorBrush x:Key="CheckedForeground" Color="DarkOrange" />
         <SolidColorBrush x:Key="MouseOverForeground" Color="DarkOrange" />
-        <SolidColorBrush x:Key="DisableOpacity" Color="DimGray" />
+        <system:Double x:Key="DisableOpacity">0.35</system:Double>
 
         <Style TargetType="{x:Type RadioButton}">
             <Setter Property="Background" Value="Transparent" />
@@ -75,13 +77,13 @@
     <Border>
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="35" />
-                <RowDefinition Height="35" />
+                <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
+            <!--  背景start  -->
             <Rectangle
                 Grid.Row="0"
-                Grid.RowSpan="3"
+                Grid.RowSpan="2"
                 Width="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=UserControl}}"
                 Height="{Binding ActualHeight, RelativeSource={RelativeSource AncestorType=UserControl}}">
                 <Rectangle.Fill>
@@ -91,28 +93,40 @@
                     </LinearGradientBrush>
                 </Rectangle.Fill>
             </Rectangle>
+            <!--  背景end  -->
+
+            <!--  游戏类型start  -->
             <StackPanel
-                x:Name="StackPanelGameKind"
                 Grid.Row="0"
                 HorizontalAlignment="Left"
-                Orientation="Horizontal" />
-            <TextBlock
-                x:Name="TextBlockGameTitle"
-                Grid.Row="0"
-                Margin="0,5,0,0"
-                HorizontalAlignment="Center"
-                FontSize="20"
-                FontWeight="ExtraBold"
-                Text="点球大战" />
+                VerticalAlignment="Top"
+                Orientation="Horizontal">
+                <RadioButton
+                    Click="ChangeGameKind"
+                    Content="经典"
+                    GroupName="GameKind"
+                    IsChecked="True"
+                    Tag="{x:Static models:GameKind.Classics}" />
+                <RadioButton
+                    Click="ChangeGameKind"
+                    Content="小学二年级"
+                    GroupName="GameKind"
+                    Tag="{x:Static models:GameKind.Equation1}" />
+            </StackPanel>
+            <!--  游戏类型end  -->
 
+            <!--  当前游戏信息start  -->
             <Grid
                 x:Name="GridBallGameHeader"
-                Grid.Row="1"
-                HorizontalAlignment="Center" />
+                Grid.Row="0"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Top" />
+            <!--  当前游戏信息end  -->
 
+            <!--  当前游戏统计信息start  -->
             <StackPanel
                 Grid.Row="0"
-                Grid.RowSpan="3"
+                Grid.RowSpan="2"
                 Margin="0,10,10,0"
                 HorizontalAlignment="Right">
                 <TextBlock FontSize="18">
@@ -149,18 +163,25 @@
                         Text="0" />
                 </TextBlock>
             </StackPanel>
-            <Canvas x:Name="CanvasPlayground" Grid.Row="2" />
+            <!--  当前游戏统计信息end  -->
+
+            <!--  当前游戏运动区域start  -->
+            <Canvas x:Name="CanvasPlayground" Grid.Row="1" />
+            <!--  当前游戏运动区域end  -->
+
+            <!--  游戏结束画面start  -->
             <Grid
                 x:Name="GridGameOver"
-                Grid.Row="2"
+                Grid.Row="1"
                 Background="#3f000000">
                 <TextBlock
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"
                     FontSize="58"
                     Foreground="DarkOrange"
-                    Text="Game Over" />
+                    Text="点击【开始游戏】吧" />
             </Grid>
+            <!--  游戏结束画面end  -->
         </Grid>
     </Border>
 </UserControl>

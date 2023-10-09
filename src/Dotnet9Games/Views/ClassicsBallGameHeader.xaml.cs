@@ -1,18 +1,15 @@
 ﻿using System.Windows.Controls;
 
-namespace Dotnet9Games.Views
+namespace Dotnet9Games.Views;
+
+/// <summary>
+///     经典游戏
+/// </summary>
+public partial class ClassicsBallGameHeader : UserControl, IBallGame
 {
-    /// <summary>
-    /// 经典游戏
-    /// </summary>
-    public partial class ClassicsBallGameHeader : UserControl, IBallGame
+    public ClassicsBallGameHeader(Canvas canvas)
     {
-
-        public ClassicsBallGameHeader(Canvas canvas)
-        {
-            InitializeComponent();
-            _canvas = canvas;
-        }
-
+        InitializeComponent();
+        _canvas = canvas;
     }
 }
