@@ -59,6 +59,7 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Helpers\ObjectHelper.cs" />
     <Compile Include="HookBallgameMeasureOverride.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>

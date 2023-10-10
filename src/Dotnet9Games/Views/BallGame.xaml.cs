@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -189,25 +190,25 @@ public partial class BallGame : UserControl
     }
 
     /// <summary>
-    ///     重写MeasureOverride方法，引出Size参数为负数异常
+    ///     重写MeasureOverride方法，引出异常
     /// </summary>
     /// <param name="constraint"></param>
     /// <returns></returns>
     protected override Size MeasureOverride(Size constraint)
     {
-        // 计算最后一个元素宽度，不需要关注为什么这样写，只是为了引出Size异常使得
+        var currentBalls = _currentBallGame.GetBalls();
 
-        //var lastChild = _balloons.LastOrDefault();
-        //if (lastChild != null)
-        //{
-        //    var remainWidth = ActualWidth;
-        //    foreach (var balloon in _balloons)
-        //    {
-        //        remainWidth -= balloon.Ball.Width;
-        //    }
+        var lastChild = currentBalls.LastOrDefault();
+        if (lastChild != null)
+        {
+            var remainWidth = CanvasPlayground.ActualWidth;
+            foreach (var balloon in currentBalls)
+            {
+                remainWidth -= balloon.Owner.Width;
+            }
 
-        //    lastChild.Ball.Measure(new Size(remainWidth, lastChild.Ball.Height));
-        //}
+            lastChild.Owner.Measure(new Size(remainWidth, lastChild.Owner.Height));
+        }
 
         return base.MeasureOverride(constraint);
     }

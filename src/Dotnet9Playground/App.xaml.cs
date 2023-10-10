@@ -18,7 +18,7 @@ namespace Dotnet9Playground
             HookBallGameStartGame.StartHook();
 
             // 这是第二个拦截方法：拦截气球MeasureOverride方法
-            //HookBallgameMeasureOverride.StartHook();
+            HookBallgameMeasureOverride.StartHook();
         }
     }
 }

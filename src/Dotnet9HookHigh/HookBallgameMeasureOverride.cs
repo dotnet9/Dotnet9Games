@@ -6,10 +6,10 @@ using System.Linq;
 using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
+using Dotnet9HookHigh.Helpers;
 
 namespace Dotnet9HookHigh
 {
-
     /// <summary>
     /// 拦截BallGame的MeasureOverride方法
     /// </summary>
@@ -40,18 +40,18 @@ namespace Dotnet9HookHigh
         {
             #region 原方法代码逻辑
 
-            //// 计算最后一个元素宽度，不需要关注为什么这样写，只是为了引出Size异常使得
+            //var currentBalls = _currentBallGame.GetBalls();
 
-            //var lastChild = _balloons.LastOrDefault();
+            //var lastChild = currentBalls.LastOrDefault();
             //if (lastChild != null)
             //{
-            //    var remainWidth = ActualWidth;
-            //    foreach (var balloon in _balloons)
+            //    var remainWidth = CanvasPlayground.ActualWidth;
+            //    foreach (var balloon in currentBalls)
             //    {
-            //        remainWidth -= balloon.Shape.Width;
+            //        remainWidth -= balloon.Owner.Width;
             //    }
 
-            //    lastChild.Shape.Measure(new Size(remainWidth, lastChild.Shape.Height));
+            //    lastChild.Owner.Measure(new Size(remainWidth, lastChild.Owner.Height));
             //}
 
             //return base.MeasureOverride(constraint);
@@ -60,18 +60,21 @@ namespace Dotnet9HookHigh
 
             #region 拦截替换代码
 
-            var instanceType = __instance.GetType();
-            var balloonsField = instanceType.GetField("_balloons", BindingFlags.NonPublic | BindingFlags.Instance);
-            var balloons = (IEnumerable)balloonsField.GetValue(__instance);
+            var instance = __instance;
+            var currentBallGame = instance.Field("_currentBallGame", BindingFlags.Instance | BindingFlags.NonPublic);
+            var currentBalls =
+                currentBallGame.ExecuteWithReturn<IEnumerable>("GetBalls", BindingFlags.Instance | BindingFlags.Public);
 
-            var lastChild = balloons.Cast<object>().LastOrDefault();
+            var lastChild = currentBalls?.Cast<object>().LastOrDefault();
             if (lastChild == null)
             {
                 return false;
             }
 
-            var remainWidth = ((UserControl)__instance).ActualWidth;
-            foreach (object balloon in balloons)
+            var canvasPlayground = instance.Field("CanvasPlayground",
+                BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
+            var remainWidth = ((Canvas)canvasPlayground).ActualWidth;
+            foreach (object balloon in currentBalls)
             {
                 remainWidth -= GetBalloonSize(balloon).Width;
             }
@@ -89,11 +92,9 @@ namespace Dotnet9HookHigh
             return false;
         }
 
-        private static Ball GetBalloonBall(object balloon)
+        private static UserControl GetBalloonBall(object balloon)
         {
-            var shapeProperty = balloon.GetType().GetProperty("Ball");
-            var shape = (Ball)shapeProperty!.GetValue(balloon);
-            return shape;
+            return balloon.Property<UserControl>("Owner", BindingFlags.Instance | BindingFlags.Public);
         }
 
         private static Size GetBalloonSize(object balloon)
