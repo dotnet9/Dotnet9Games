@@ -70,8 +70,8 @@ public partial class Equation1BallGameHeader
         for (var i = 0; i < equationBallCount; i++)
         {
             var expressAndResult = EquationHelper.GetExpressAndResult();
-            _expressionInfos[expressAndResult.Express] =
-                new ExpressionInfo(expressAndResult.Express, expressAndResult.Result);
+            _expressionInfos[expressAndResult.Expression] =
+                new ExpressionInfo(expressAndResult.Expression, expressAndResult.Result);
 
             CreateBall((int)expressAndResult.Result);
         }

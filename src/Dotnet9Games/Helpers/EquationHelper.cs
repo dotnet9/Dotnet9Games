@@ -8,7 +8,7 @@ internal static class EquationHelper
     ///     获取小学二年级的随机算式及结果
     /// </summary>
     /// <returns></returns>
-    public static (string Express, uint Result) GetExpressAndResult()
+    public static EquationResult GetExpressAndResult()
     {
         var minNumber = 5;
         var maxNumber = 50;
@@ -72,8 +72,18 @@ internal static class EquationHelper
         } while (result > 100);
 
         // 输出算式和结果
-        var express = $"{num1}{(operation1 == 0 ? "+" : "-")}{num2}{(operation2 == 0 ? "+" : "-")}{num3}";
-        return
-            (express, (uint)result);
+        var expression = $"{num1}{(operation1 == 0 ? "+" : "-")}{num2}{(operation2 == 0 ? "+" : "-")}{num3}";
+        return new EquationResult(expression, (uint)result);
+    }
+}
+
+internal class EquationResult
+{
+    public string Expression { get; set; }
+    public uint Result { get; set; }
+    internal EquationResult(string expression, uint result)
+    {
+        Expression = expression;
+        Result = result;
     }
 }

@@ -23,6 +23,6 @@
             VerticalAlignment="Center"
             FontSize="20"
             FontWeight="ExtraBold"
-            Foreground="White" />
+            Foreground="Black" />
     </Grid>
 </UserControl>

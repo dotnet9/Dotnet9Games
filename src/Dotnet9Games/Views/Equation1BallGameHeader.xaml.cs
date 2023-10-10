@@ -11,7 +11,6 @@ public partial class Equation1BallGameHeader : UserControl, IBallGame
 {
     private QuestionKind _questionKind;
     private int customQuestionCount;
-    private int questionCount;
 
     public Equation1BallGameHeader(Canvas canvas)
     {
