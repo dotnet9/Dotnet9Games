@@ -14,8 +14,8 @@ namespace Dotnet9Playground
         {
             base.OnStartup(e);
 
-            // 拦截气球动画播放方法
-            //HookBallGameStartGame.StartHook();
+            // 拦截气球限制关卡
+            HookBallGameStartGame.StartHook();
 
             // 这是第二个拦截方法：拦截气球MeasureOverride方法
             //HookBallgameMeasureOverride.StartHook();

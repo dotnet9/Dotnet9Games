@@ -52,12 +52,27 @@ public partial class BallGame : UserControl
     /// </summary>
     private void UpgradeGame()
     {
-        Dispatcher.Invoke(() =>
+        Invoke(() =>
         {
-            _currentBallGame.UpgradeGameLevel();
+            var level = _currentBallGame.UpgradeGameLevel();
+            if (level >= 3)
+            {
+                ShowGameOver(true, "游戏体验结束，后面关卡需要【充值】");
+                return;
+            }
+
             BallHelper.PlayWordSound($"恭喜进入第{_currentBallGame.Level()}关");
             GenerateBalloons();
         });
+    }
+
+    /// <summary>
+    /// 同步UI线程修改视图
+    /// </summary>
+    /// <param name="action"></param>
+    private void Invoke(Action action)
+    {
+        Dispatcher.Invoke(action);
     }
 
     /// <summary>
@@ -73,7 +88,7 @@ public partial class BallGame : UserControl
         {
             _currentBallGame = (IBallGame)_ballKind[gameKind];
             ShowBallGameInfo(gameKind);
-            ShowGameOver();
+            ShowGameOver(true, "切换游戏类型，点击【开始游戏】重新开始");
         }
     }
 
@@ -140,7 +155,7 @@ public partial class BallGame : UserControl
         }
 
         BallHelper.PlayWordSound("游戏结束");
-        ShowGameOver();
+        ShowGameOver(true, "别灰心，点击【开始游戏】重新开始");
     }
 
     /// <summary>
@@ -150,7 +165,7 @@ public partial class BallGame : UserControl
     /// <returns></returns>
     private void CountGame(double seconds)
     {
-        Dispatcher.Invoke(() =>
+        Invoke(() =>
         {
             RunTimeCount.Text = $"{seconds:f2}秒";
             RunScores.Text = _currentBallGame.CountScores().ToString();
@@ -162,10 +177,15 @@ public partial class BallGame : UserControl
     ///     显示游戏结束标识
     /// </summary>
     /// <param name="show"></param>
-    private void ShowGameOver(bool show = true)
+    /// <param name="tipMsg"></param>
+    private void ShowGameOver(bool show = true, string tipMsg = "点击【开始游戏】重新开始")
     {
         _stopwatch.Stop();
-        Dispatcher.Invoke(() => { GridGameOver.Visibility = show ? Visibility.Visible : Visibility.Collapsed; });
+        Invoke(() =>
+        {
+            GridGameOver.Visibility = show ? Visibility.Visible : Visibility.Collapsed;
+            TextBlockGameOverTip.Text = tipMsg;
+        });
     }
 
     /// <summary>

@@ -26,7 +26,7 @@ internal interface IBallGame
     /// <summary>
     ///     升级游戏
     /// </summary>
-    void UpgradeGameLevel();
+    int UpgradeGameLevel();
 
     /// <summary>
     ///     游戏级别

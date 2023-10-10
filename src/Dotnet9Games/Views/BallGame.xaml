@@ -175,10 +175,11 @@
                 Grid.Row="1"
                 Background="#3f000000">
                 <TextBlock
+                    x:Name="TextBlockGameOverTip"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"
-                    FontSize="58"
-                    Foreground="DarkOrange"
+                    FontSize="38"
+                    Foreground="Red"
                     Text="点击【开始游戏】吧" />
             </Grid>
             <!--  游戏结束画面end  -->

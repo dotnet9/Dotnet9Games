@@ -35,10 +35,11 @@ public partial class ClassicsBallGameHeader
         SetGameLevel(1);
     }
 
-    public void UpgradeGameLevel()
+    public int UpgradeGameLevel()
     {
         _level++;
         SetGameLevel(_level);
+        return _level;
     }
 
     public int Level()

@@ -69,7 +69,8 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Hooks\HookBallGameStartGame.cs" />
+    <Compile Include="Helpers\ObjectHelper.cs" />
+    <Compile Include="Hooks\HookBallGameUpgradeGame.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -116,5 +117,6 @@
       <Name>Dotnet9HookHigh</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

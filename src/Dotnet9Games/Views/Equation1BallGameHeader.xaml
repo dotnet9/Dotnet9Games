@@ -22,7 +22,7 @@
             Foreground="Green">
             <Run x:Name="RunLevel" />
             <Run Text="-" />
-            <Run Text="点破标有算式结果的气球闯关" />
+            <Run Text="点破所有气球或将标有算式结果的气球点破即闯入下一关" />
         </TextBlock>
         <StackPanel Orientation="Horizontal">
             <TextBlock

@@ -38,10 +38,11 @@ public partial class Equation1BallGameHeader
         SetGameLevel(1);
     }
 
-    public void UpgradeGameLevel()
+    public int UpgradeGameLevel()
     {
         _level++;
         SetGameLevel(_level);
+        return _level;
     }
 
     public int Level()
