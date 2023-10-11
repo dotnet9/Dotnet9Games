@@ -65,6 +65,7 @@ internal class BallHelper
     /// </summary>
     internal static void CloseBackgroundMusic()
     {
+        _soundPlayer.Stop();
         _soundPlayer?.Dispose();
     }
 

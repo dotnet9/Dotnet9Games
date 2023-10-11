@@ -12,21 +12,6 @@
     Icon="Resources/favicon.ico"
     mc:Ignorable="d">
     <Border Padding="10">
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="40" />
-                <RowDefinition Height="*" />
-            </Grid.RowDefinitions>
-            <Button
-                Padding="15,2"
-                Background="White"
-                BorderBrush="DarkGreen"
-                BorderThickness="2"
-                Click="StartGame_OnClick"
-                Content="开始游戏"
-                FontSize="20"
-                Foreground="DarkOrange" />
-            <dotnet9:BallGame x:Name="MyBallGame" Grid.Row="1" />
-        </Grid>
+        <dotnet9:BallGame x:Name="MyBallGame" />
     </Border>
 </Window>

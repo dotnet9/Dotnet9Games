@@ -41,8 +41,8 @@
     <Reference Include="0Harmony, Version=1.2.0.1, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Lib.Harmony.1.2.0.1\lib\net45\0Harmony.dll</HintPath>
     </Reference>
-    <Reference Include="Dotnet9Games, Version=1.0.4.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Dotnet9Games.1.0.5\lib\net461\Dotnet9Games.dll</HintPath>
+    <Reference Include="Dotnet9Games, Version=1.0.6.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Dotnet9Games.1.0.6\lib\net461\Dotnet9Games.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />

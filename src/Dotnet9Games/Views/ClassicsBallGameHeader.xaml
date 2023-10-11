@@ -15,7 +15,8 @@
             Text="经典点球大战" />
         <TextBlock
             x:Name="TextBlockTips"
-            FontSize="20"
+            Margin="0,15,0,0"
+            FontSize="14"
             Foreground="Green" />
     </StackPanel>
 </UserControl>

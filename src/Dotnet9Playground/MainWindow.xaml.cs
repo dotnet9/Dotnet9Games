@@ -11,9 +11,4 @@ public partial class MainWindow : Window
     {
         InitializeComponent();
     }
-
-    private void StartGame_OnClick(object sender, RoutedEventArgs e)
-    {
-        MyBallGame.StartGame();
-    }
 }

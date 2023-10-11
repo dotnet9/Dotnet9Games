@@ -17,8 +17,9 @@
             Foreground="DarkOrange"
             Text="小学二年级点球大战" />
         <TextBlock
+            Margin="0,15,0,0"
             HorizontalAlignment="Center"
-            FontSize="20"
+            FontSize="14"
             Foreground="Green">
             <Run x:Name="RunLevel" />
             <Run Text="-" />
@@ -28,13 +29,13 @@
             <TextBlock
                 Margin="10,0,0,0"
                 VerticalAlignment="Center"
-                FontSize="20"
+                FontSize="14"
                 Foreground="DarkOrange"
                 Text="题目个数：" />
             <RadioButton
                 VerticalAlignment="Center"
                 Click="ChangeQuestionKind_OnClick"
-                Content="同关卡级别"
+                Content="同关卡级别" FontSize="14"
                 GroupName="QuestionKind"
                 IsChecked="True"
                 Tag="{x:Static models:QuestionKind.SameLevel}" />
@@ -42,7 +43,7 @@
                 x:Name="RadioButtonCustomCount"
                 VerticalAlignment="Center"
                 Click="ChangeQuestionKind_OnClick"
-                Content="自定义"
+                Content="自定义" FontSize="14"
                 GroupName="QuestionKind"
                 Tag="{x:Static models:QuestionKind.Custom}" />
             <TextBox
@@ -57,6 +58,6 @@
         <TextBlock
             x:Name="TextBlockQuestionInfo"
             FontSize="20"
-            Foreground="White" />
+            Foreground="Red" />
     </StackPanel>
 </UserControl>

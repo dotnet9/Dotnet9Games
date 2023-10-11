@@ -73,6 +73,91 @@
                 </Setter.Value>
             </Setter>
         </Style>
+
+        <Style TargetType="CheckBox">
+            <Setter Property="Background" Value="Green" />
+            <Setter Property="Foreground" Value="Green" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="CheckBox">
+                        <Border
+                            x:Name="outerBorder"
+                            Width="96"
+                            Height="25"
+                            Background="{TemplateBinding Background}"
+                            CornerRadius="10">
+                            <Grid>
+                                <Border
+                                    x:Name="border"
+                                    Width="18"
+                                    Height="18"
+                                    Margin="1,0"
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Center"
+                                    Background="White"
+                                    CornerRadius="9">
+                                    <Border.RenderTransform>
+                                        <TranslateTransform X="0" />
+                                    </Border.RenderTransform>
+                                </Border>
+                                <TextBlock
+                                    x:Name="txt"
+                                    Margin="9,0"
+                                    VerticalAlignment="Center"
+                                    Foreground="White"
+                                    Text="{TemplateBinding Content}">
+                                    <TextBlock.RenderTransform>
+                                        <TranslateTransform X="18" />
+                                    </TextBlock.RenderTransform>
+                                </TextBlock>
+                            </Grid>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsChecked" Value="False">
+                                <Setter TargetName="txt" Property="Text" Value="{Binding Tag, RelativeSource={RelativeSource TemplatedParent}}" />
+                                <Setter TargetName="txt" Property="Foreground" Value="#ffffff" />
+                                <Setter TargetName="outerBorder" Property="Background" Value="#55000000" />
+                                <Trigger.EnterActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation
+                                                Storyboard.TargetName="border"
+                                                Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.X)"
+                                                To="75"
+                                                Duration="00:00:0.2" />
+                                            <DoubleAnimation
+                                                Storyboard.TargetName="txt"
+                                                Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.X)"
+                                                To="0"
+                                                Duration="00:00:0.2" />
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.EnterActions>
+                                <Trigger.ExitActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation
+                                                Storyboard.TargetName="border"
+                                                Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.X)"
+                                                To="0"
+                                                Duration="00:00:0.2" />
+                                            <DoubleAnimation
+                                                Storyboard.TargetName="txt"
+                                                Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.X)"
+                                                To="18"
+                                                Duration="00:00:0.2" />
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.ExitActions>
+                            </Trigger>
+                            <Trigger Property="IsChecked" Value="True">
+                                <Setter TargetName="txt" Property="Text" Value="{Binding Content, RelativeSource={RelativeSource TemplatedParent}}" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
     </UserControl.Resources>
     <Border>
         <Grid>
@@ -80,6 +165,8 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
+
+
             <!--  背景start  -->
             <Rectangle
                 Grid.Row="0"
@@ -94,6 +181,7 @@
                 </Rectangle.Fill>
             </Rectangle>
             <!--  背景end  -->
+
 
             <!--  游戏类型start  -->
             <StackPanel
@@ -112,6 +200,23 @@
                     Content="小学二年级"
                     GroupName="GameKind"
                     Tag="{x:Static models:GameKind.Equation1}" />
+                <Button
+                    Padding="15,2"
+                    HorizontalAlignment="Center"
+                    Background="White"
+                    BorderBrush="DarkGreen"
+                    BorderThickness="2"
+                    Click="StartGame_OnClick"
+                    Content="开始游戏"
+                    FontSize="20"
+                    Foreground="DarkOrange" />
+                <CheckBox
+                    Margin="10,0,0,0"
+                    VerticalAlignment="Center"
+                    Click="OpenOrCloseBackgroundMusic_OnClick"
+                    Content="背景音乐"
+                    IsChecked="True"
+                    Tag="无背景音乐" />
             </StackPanel>
             <!--  游戏类型end  -->
 

@@ -232,4 +232,29 @@ public partial class BallGame : UserControl
     {
         BallHelper.CloseBackgroundMusic();
     }
+
+    private void StartGame_OnClick(object sender, RoutedEventArgs e)
+    {
+        StartGame();
+    }
+
+    /// <summary>
+    /// 打开或关闭背景音乐
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
+    private void OpenOrCloseBackgroundMusic_OnClick(object sender, RoutedEventArgs e)
+    {
+        if (sender is CheckBox checkBox)
+        {
+            if (checkBox.IsChecked == true)
+            {
+                BallHelper.PlayBackgroundMusic();
+            }
+            else
+            {
+                BallHelper.CloseBackgroundMusic();
+            }
+        }
+    }
 }
