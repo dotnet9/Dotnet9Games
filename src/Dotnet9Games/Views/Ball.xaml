@@ -8,12 +8,12 @@
     d:DesignWidth="300"
     mc:Ignorable="d">
     <Grid>
-        <Ellipse Name="EllipseBall" StrokeThickness="0">
+        <Ellipse Name="EllipseBall">
             <Ellipse.Fill>
-                <RadialGradientBrush RadiusX="0.75" RadiusY="0.75" GradientOrigin="0.7 0.35" Center="0.5 0.5">
-                    <GradientStop Color="White" Offset="0" />
-                    <GradientStop Color="DarkOrange" Offset="0.75" x:Name="GradientStopDiff"/>
-                    <GradientStop Color="White" Offset="1" />
+                <RadialGradientBrush GradientOrigin="0.5 0.5">
+                    <GradientStop Offset="0" Color="#000000" />
+                    <GradientStop Offset="0.6" Color="#01000000"/>
+                    <GradientStop x:Name="GradientStopDiff" Offset="1" Color="#ffffff" />
                 </RadialGradientBrush>
             </Ellipse.Fill>
         </Ellipse>
@@ -21,8 +21,8 @@
             x:Name="TextBlockBallNumber"
             HorizontalAlignment="Center"
             VerticalAlignment="Center"
-            FontSize="20"
+            FontSize="20" Text="66"
             FontWeight="ExtraBold"
-            Foreground="Black" />
+            Foreground="White" />
     </Grid>
 </UserControl>

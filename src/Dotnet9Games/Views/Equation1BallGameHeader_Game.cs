@@ -107,7 +107,7 @@ public partial class Equation1BallGameHeader
     private void SetGameLevel(int level)
     {
         _level = level;
-        _currentLevelBallCount = _level * 2;
+        _currentLevelBallCount = _level + 2;
         _ballScores = 0;
         RunLevel.Text = $"第{_level}关";
     }

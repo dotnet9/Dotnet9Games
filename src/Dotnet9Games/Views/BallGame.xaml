@@ -175,8 +175,8 @@
                 Height="{Binding ActualHeight, RelativeSource={RelativeSource AncestorType=UserControl}}">
                 <Rectangle.Fill>
                     <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                        <GradientStop Offset="0" Color="#FFD8E6F3" />
-                        <GradientStop Offset="1" Color="#FFB0D1F0" />
+                        <GradientStop Offset="0" Color="#000000" />
+                        <GradientStop Offset="1" Color="#000000" />
                     </LinearGradientBrush>
                 </Rectangle.Fill>
             </Rectangle>

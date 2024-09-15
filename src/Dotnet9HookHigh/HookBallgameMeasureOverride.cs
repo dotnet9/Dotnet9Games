@@ -1,4 +1,5 @@
 ﻿using Dotnet9Games.Views;
+using Dotnet9HookHigh.Helpers;
 using HarmonyLib;
 using System.Collections;
 using System.Data;
@@ -6,7 +7,6 @@ using System.Linq;
 using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
-using Dotnet9HookHigh.Helpers;
 
 namespace Dotnet9HookHigh
 {

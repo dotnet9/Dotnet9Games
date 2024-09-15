@@ -95,7 +95,7 @@ public partial class ClassicsBallGameHeader
         _currentLevelBallCount = 1;
         while (time > 0)
         {
-            _currentLevelBallCount *= 2;
+            _currentLevelBallCount += 2;
             time -= 1;
         }
 

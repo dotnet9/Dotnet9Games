@@ -8,7 +8,7 @@
     <OutputType>WinExe</OutputType>
     <RootNamespace>Dotnet9Playground</RootNamespace>
     <AssemblyName>Dotnet9Playground</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
@@ -39,10 +39,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="0Harmony, Version=1.2.0.1, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Lib.Harmony.1.2.0.1\lib\net45\0Harmony.dll</HintPath>
-    </Reference>
-    <Reference Include="Dotnet9Games, Version=1.0.6.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Dotnet9Games.1.0.6\lib\net461\Dotnet9Games.dll</HintPath>
+      <HintPath>..\packages\Lib.Harmony.1.2.0.1\lib\net472\0Harmony.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -111,6 +108,10 @@
     <Resource Include="Resources\logo.png" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Dotnet9Games\Dotnet9Games.csproj">
+      <Project>{ad5a98dc-6e12-4b94-8ffa-9bfc532c67c7}</Project>
+      <Name>Dotnet9Games</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Dotnet9HookHigh\Dotnet9HookHigh.csproj">
       <Project>{c57e92de-df04-4e21-a2e9-65e0e10ff76b}</Project>
       <Name>Dotnet9HookHigh</Name>
